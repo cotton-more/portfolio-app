@@ -36,3 +36,5 @@ nosetests.xml
 
 # virtual environment
 venv
+# static files, use portfolio-static repo
+app/static
