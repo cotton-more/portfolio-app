@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Base</title>
+        <link rel="shortcut icon" href="/static/assets/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/portfolio-static.css') }}" type="text/css" media="all" />
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>
