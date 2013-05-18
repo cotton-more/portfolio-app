@@ -36,3 +36,6 @@ nosetests.xml
 
 # virtual environment
 venv
+
+# ignore static directory as use separate repo
+app/static
