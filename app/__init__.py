@@ -10,6 +10,11 @@ db = SQLAlchemy(app)
 def not_found(error):
     return render_template('404.html'), 404
 
+
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('assets/favicon.ico')
+
 from app.portfolio.views import mod as portfolioModule
 app.register_blueprint(portfolioModule)
 
