@@ -1,8 +1,20 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config.from_object('config')
+
 db = SQLAlchemy(app)
 
-from app import views, models
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html'), 404
+
+from app.portfolio.views import mod as portfolioModule
+app.register_blueprint(portfolioModule)
+
+from app.users.views import mod as usersModule
+app.register_blueprint(usersModule)
+
+from app.pages.views import mod as pagesModule
+app.register_blueprint(pagesModule)

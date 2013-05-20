@@ -1,19 +1,4 @@
 from app import db
-from flask.ext.login import UserMixin
-
-ROLE_ADMIN = 'admin'
-ROLE_GUEST = 'guest'
-
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
-
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(128))
-    role = db.Column(db.String(128), unique=True, default=ROLE_GUEST)
-
-    def __repr__(self):
-        return "<User(%s, %s)>" % (self.email, self.role)
-
 
 class Menu(db.Model):
     __tablename__ = 'menus'
@@ -66,4 +51,5 @@ class Card(db.Model):
 
     def __repr__(self):
         return "<Card(%d, %s)>" % (self.id, self.name)
+
 
