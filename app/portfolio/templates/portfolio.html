@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="span8" data-ng-view></div>
+    <div class="span4">
+        <div data-ng-controller="MenuCtrl">
+            <!-- directive: ni-menu tree -->
+        </div>
+    </div>
+</div>
+{% endblock %}
