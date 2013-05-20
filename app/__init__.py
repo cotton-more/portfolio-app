@@ -15,6 +15,7 @@ def not_found(error):
 def favicon():
     return app.send_static_file('assets/favicon.ico')
 
+
 from app.portfolio.views import mod as portfolioModule
 app.register_blueprint(portfolioModule)
 
