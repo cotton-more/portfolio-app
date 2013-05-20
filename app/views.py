@@ -3,9 +3,8 @@ from app import app
 from models import Menu
 from models import Card
 from flask import jsonify
-from flask import request, current_app
+from flask import request, current_app, render_template
 from flask import abort, session
-from flask import render_template
 
 from functools import wraps
 
@@ -73,7 +72,6 @@ def auth_email():
     email = session.get('email', None)
 
     return jsonify({'email': email})
-
 
 @app.route('/')
 @app.route('/index')
