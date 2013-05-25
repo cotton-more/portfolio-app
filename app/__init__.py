@@ -4,6 +4,11 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config.from_object('config')
 
+@app.context_processor
+def current_timestamp():
+    import time
+    return dict(_t=time.time())
+
 db = SQLAlchemy(app)
 
 @app.errorhandler(404)
