@@ -21,7 +21,7 @@ def get_cards(menu_id):
     return jsonify(result=cards)
 
 
-@mod.route('/')
-@mod.route('/index')
-def index():
+@mod.route('/', defaults={'path': ''})
+@mod.route('/<path:path>')
+def index(path):
     return render_template('portfolio.html')
