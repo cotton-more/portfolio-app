@@ -10,7 +10,7 @@ def auth_login():
 
     import requests
     assertion_info = {'assertion': assertion,
-                        'audience': 'localhost:9000' } # window.location.host
+                        'audience': '127.0.0.1:5000' } # window.location.host
     resp = requests.post('https://verifier.login.persona.org/verify',
                         data=assertion_info, verify=True)
 
