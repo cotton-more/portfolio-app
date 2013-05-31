@@ -1,16 +1,12 @@
 from app import db
 
-class Menu(db.Model):
-    __tablename__ = 'menus'
+class Project(db.Model):
+    __tablename__ = 'projects'
 
     id = db.Column(db.Integer, primary_key=True)
-    parent_id = db.Column(db.Integer, db.ForeignKey('menus.id'))
     name = db.Column(db.String(64))
     about = db.Column(db.Text)
-
-    children = db.relationship("Menu",
-                          backref=db.backref("parent", remote_side=[id])
-                          )
+    tags = db.Column(db.String(255))
 
     cards = db.relationship("Card",
                           backref="menu"
@@ -20,21 +16,21 @@ class Menu(db.Model):
         """Turn entity into json-ready object"""
         return {
             'id': self.id,
-            'parent_id': self.parent_id,
             'name': self.name,
             'about': self.about,
+            'tags': [ tag.strip() for tag in self.tags.split(',') ],
             'cards_len': len(self.cards)
         }
 
     def __repr__(self):
-        return "<Menu(%s, %s)>" % (self.id, self.name)
+        return "<Project(%s, %s)>" % (self.id, self.name)
 
 
 class Card(db.Model):
     __tablename__ = 'cards'
 
     id = db.Column(db.Integer, primary_key=True)
-    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'))
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     name = db.Column(db.String(128))
     about = db.Column(db.Text)
     image = db.Column(db.String(128))
