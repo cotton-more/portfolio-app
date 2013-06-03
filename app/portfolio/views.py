@@ -1,21 +1,21 @@
 from flask import Blueprint, jsonify, render_template
 
-from app.portfolio.models import Menu, Card
+from app.portfolio.models import Project, Card
 
 mod = Blueprint('portfolio', __name__,
                 url_prefix='/portfolio',
                 template_folder='templates')
 
-@mod.route('/menu/list')
+@mod.route('/projects')
 def menu_list():
-    menu = [e.json() for e in Menu.query.all()]
+    result = [e.json() for e in Project.query.all()]
 
-    return jsonify(result=menu)
+    return jsonify(result=result)
 
 
-@mod.route('/get_cards/<int:menu_id>')
-def get_cards(menu_id):
-    q = Card.query.filter(Card.menu_id==menu_id)
+@mod.route('/get_cards/<int:project_id>')
+def get_cards(project_id):
+    q = Card.query.filter(Card.project_id==project_id)
     cards = [e.json() for e in q.all()]
 
     return jsonify(result=cards)

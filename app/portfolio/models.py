@@ -14,13 +14,19 @@ class Project(db.Model):
 
     def json(self):
         """Turn entity into json-ready object"""
-        return {
+
+        project = {
             'id': self.id,
             'name': self.name,
             'about': self.about,
-            'tags': [ tag.strip() for tag in self.tags.split(',') ],
+            'tags': self.tags,
             'cards_len': len(self.cards)
         }
+
+        if (project['tags']):
+            project['tags'] = [ tag.strip() for tag in self.tags.split(',') ]
+
+        return project
 
     def __repr__(self):
         return "<Project(%s, %s)>" % (self.id, self.name)
