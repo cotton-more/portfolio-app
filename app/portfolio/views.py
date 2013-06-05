@@ -13,7 +13,7 @@ def menu_list():
     return jsonify(result=result)
 
 
-@mod.route('/get_cards/<int:project_id>')
+@mod.route('/<int:project_id>/cards')
 def get_cards(project_id):
     q = Card.query.filter(Card.project_id==project_id)
     cards = [e.json() for e in q.all()]

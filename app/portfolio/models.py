@@ -45,7 +45,7 @@ class Card(db.Model):
         """Turn entity into json-ready object"""
         return {
             'id': self.id,
-            'menu_id': self.menu_id,
+            'project_id': self.project_id,
             'name': self.name,
             'about': self.about,
             'image': self.image
