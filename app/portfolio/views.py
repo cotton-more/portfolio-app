@@ -1,5 +1,6 @@
 import json
 
+from flask import request
 from flask import Blueprint
 from flask import Response
 from flask import render_template
@@ -15,9 +16,10 @@ mod = Blueprint('portfolio', __name__,
                 template_folder='templates')
 
 
-@mod.route('/projects/<int:id>/save', methods=["POST"])
-def save(id):
-    entity = Portfolio.query.get(id)
+@mod.route('/projects/save', methods=["POST"])
+def save():
+    data = json.loads(request.data)
+    entity = Portfolio.query.get(int(data['id']))
 
     return Response(json.dumps(entity), mimetype='application/json')
 
@@ -43,6 +45,7 @@ def view_project(id):
     e = Project.query.options(joinedload('cards')).filter(Project.id==id).one()
 
     result = e.json()
+    result["id"] = e.id
     result["cards"] = [ card.json() for card in e.cards ]
 
     return Response(json.dumps(result), mimetype='application/json')
