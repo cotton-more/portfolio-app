@@ -1,3 +1,4 @@
+from flask import url_for
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from app import db
@@ -37,10 +38,10 @@ class Project(Portfolio):
         """Turn entity into json-ready object"""
 
         return {
-            'id': self.id,
             'name': self.name,
             'about': self.about,
-            'tags': self.tags
+            'tags': self.tags,
+            "url": url_for('portfolio.view_project', id=self.id)
         }
 
     def __repr__(self):
@@ -52,13 +53,14 @@ class Card(Portfolio):
         'polymorphic_identity': 'card'
     }
 
-    parent_id = db.Column(db.Integer, db.ForeignKey('portfolio.parent_id'))
+    parent_id = db.Column(db.Integer, db.ForeignKey('portfolio.id'))
     image = db.Column(db.String(128))
+
+    project = db.relationship(Project, backref="cards", remote_side=Project.id)
 
     def json(self):
         """Turn entity into json-ready object"""
         return {
-            'id': self.id,
             'name': self.name,
             'about': self.about,
             'image': self.image
