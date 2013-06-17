@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="portfolioNgApp">
+<html data-ng-app="portfolioApp">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/portfolio-static.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/stylesheet.css') }}" type="text/css" media="all" />
     </head>
     <body>
         {% include "_nav.html" %}
@@ -28,7 +28,10 @@
         </footer>
         <script src="https://login.persona.org/include.js"></script>
         <script src="{{ url_for('static', filename='scripts/libs.js') }}?_t={{ _t }}"></script>
-        <script src="{{ url_for('static', filename='scripts/ui-bootstrap.tpls.js') }}?_t={{ _t }}"></script>
-        <script src="{{ url_for('static', filename='scripts/portfolio-static.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/portfolioApp.tpls.js') }}?_t={{ _t }}"></script>
+        <script src="{{ url_for('static', filename='scripts/portfolioApp.js') }}"></script>
+        <script>
+        $(document).foundation();
+        </script>
     </body>
 </html>
