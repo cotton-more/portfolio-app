@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.login import LoginManager
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -10,6 +11,11 @@ def current_timestamp():
     return dict(_t=time.time())
 
 db = SQLAlchemy(app)
+
+lm = LoginManager()
+lm.init_app(app)
+
+
 
 @app.errorhandler(404)
 def not_found(error):
