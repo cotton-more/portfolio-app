@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
+from flask.ext.login import LoginManager, current_user
+
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -15,6 +16,10 @@ db = SQLAlchemy(app)
 lm = LoginManager()
 lm.init_app(app)
 
+
+@app.before_request
+def before_request():
+    g.user = current_user
 
 
 @app.errorhandler(404)
