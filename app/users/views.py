@@ -1,19 +1,21 @@
 from sqlalchemy.orm.exc import NoResultFound
 
 from flask import Blueprint, jsonify
+from flask import redirect, url_for
 from flask.ext.login import login_user
 from flask.ext.login import logout_user
 from flask.ext.login import login_required
 from flask.ext.login import current_user
+from flask import request
 
 from .models import User
 
 mod = Blueprint('users', __name__, url_prefix='/users')
 
 
-@mod.route('/login', methods=['GET'])
+@mod.route('/login', methods=['POST'])
 def auth_login():
-    email = 'vansanblch@gmail.com'
+    email = request.form['email']
 
     try:
         user = User.query.filter_by(email = email).one()
@@ -25,7 +27,7 @@ def auth_login():
     if email:
         login_user(user)
 
-    return jsonify({'email': email})
+    return redirect(url_for('users.auth_email'))
 
 
 @mod.route('/logout', methods=['GET'])
