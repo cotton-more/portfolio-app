@@ -32,16 +32,18 @@ class Project(Portfolio):
 
     @tags.setter
     def tags(self, value):
-        self._tags = ','.join(value)
+        if value:
+            self._tags = ','.join(value)
 
     def json(self):
         """Turn entity into json-ready object"""
 
         return {
+            'id': self.id,
             'name': self.name,
             'about': self.about,
             'tags': self.tags,
-            "url": url_for('portfolio.view_project', id=self.id)
+            'url': url_for('portfolio.view_project', id=self.id)
         }
 
     def __repr__(self):

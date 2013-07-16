@@ -16,6 +16,21 @@ mod = Blueprint('portfolio', __name__,
                 template_folder='templates')
 
 
+@mod.route('/projects/update', methods=["POST"])
+def update_project():
+    data = request.json
+
+    project = Project.query.get(data['id'])
+    project.name = data['name']
+    project.about = data['about']
+    project.tags = data['tags']
+
+    db.session.add(project)
+    db.session.commit()
+
+    return Response(json.dumps(project.json()), mimetype='application/json')
+
+
 @mod.route('/projects/save', methods=["POST"])
 def save_project():
     data = request.json
@@ -52,7 +67,6 @@ def view_project(id):
     e = Project.query.options(joinedload('cards')).filter(Project.id==id).one()
 
     result = e.json()
-    result["id"] = e.id
     result["cards"] = [ card.json() for card in e.cards ]
 
     return Response(json.dumps(result), mimetype='application/json')
