@@ -7,8 +7,8 @@ from flask import render_template
 from flask import url_for
 from sqlalchemy.orm import joinedload
 
-from app.portfolio.models import Portfolio
 #from app.portfolio.models import Card
+from app import db
 from app.portfolio.models import Project
 
 mod = Blueprint('portfolio', __name__,
@@ -17,11 +17,18 @@ mod = Blueprint('portfolio', __name__,
 
 
 @mod.route('/projects/save', methods=["POST"])
-def save():
-    data = json.loads(request.data)
-    entity = Portfolio.query.get(int(data['id']))
+def save_project():
+    data = request.json
 
-    return Response(json.dumps(entity), mimetype='application/json')
+    project = Project(name = data['name'], about = data['about'])
+
+    if 'tags' in data:
+        project.tags = data['tags']
+
+    db.session.add(project)
+    db.session.commit()
+
+    return Response(json.dumps(project.json()), mimetype='application/json')
 
 
 @mod.route('/projects')
@@ -40,7 +47,7 @@ def projects():
     return Response(json.dumps(result), mimetype='application/json')
 
 
-@mod.route('/projects/<int:id>')
+@mod.route('/projects/<int:id>', methods=['GET'])
 def view_project(id):
     e = Project.query.options(joinedload('cards')).filter(Project.id==id).one()
 

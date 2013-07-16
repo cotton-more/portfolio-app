@@ -32,7 +32,7 @@ class Project(Portfolio):
 
     @tags.setter
     def tags(self, value):
-        self._tags = value.join(',')
+        self._tags = ','.join(value)
 
     def json(self):
         """Turn entity into json-ready object"""
