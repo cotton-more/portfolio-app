@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from flask import url_for
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from .. import db
@@ -20,7 +19,14 @@ class Portfolio(db.Model):
     }
 
 
-class Project(JsonSerializer, Portfolio):
+class ProjectJsonSerializer(JsonSerializer):
+    __json_modifiers__ = {
+        'tags': lambda x, self: self.tags
+    }
+    __json_hidden__ = ['_tags']
+
+
+class Project(ProjectJsonSerializer, Portfolio):
     __mapper_args__ = {
         'polymorphic_identity': 'project'
     }
@@ -39,19 +45,8 @@ class Project(JsonSerializer, Portfolio):
         if value:
             self._tags = ','.join(value)
 
-    def json(self):
-        """Turn entity into json-ready object"""
-
-        return {
-            'id': self.id,
-            'name': self.name,
-            'about': self.about,
-            'tags': self.tags,
-            'url': url_for('portfolio.view_project', id=self.id)
-        }
-
-    def __repr__(self):
-        return "<Project(%s, %s)>" % (self.id, self.name)
+    #def __repr__(self):
+        #return "<Project(%s, %s)>" % (self.id, self.name)
 
 
 class Card(JsonSerializer, Portfolio):
@@ -62,18 +57,7 @@ class Card(JsonSerializer, Portfolio):
     parent_id = db.Column(db.Integer, db.ForeignKey('portfolio.id'))
     image = db.Column(db.String(128))
 
-    project = db.relationship(Project, backref="cards", remote_side=Project.id)
-
-    def json(self):
-        """Turn entity into json-ready object"""
-        return {
-            'name': self.name,
-            'about': self.about,
-            'image': self.image
-        }
+    #project = db.relationship(Project, backref="cards", remote_side=Project.id)
 
     def __repr__(self):
         return "<Card(%d, %s)>" % (self.id, self.name)
-
-
-
