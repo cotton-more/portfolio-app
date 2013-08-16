@@ -105,3 +105,12 @@ class Service(object):
         :param id: the instance id
         """
         return self.__model__.query.get_or_404(id)
+
+
+    def find(self, **kwargs):
+        """Returns a list of instances of the service's model filtered by the
+        specified key word arguments.
+
+        :param **kwargs: filter parameters
+        """
+        return self.__model__.query.filter_by(**kwargs)
