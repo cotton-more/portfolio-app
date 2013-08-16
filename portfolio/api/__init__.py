@@ -32,7 +32,6 @@ def route(bp, *args, **kwargs):
         def wrapper(*args, **kwargs):
             sc = 200
             rv = f(*args, **kwargs)
-            print type(rv), rv, isinstance(rv, tuple)
             if isinstance(rv, tuple):
                 sc = rv[1]
                 rv = rv[0]
