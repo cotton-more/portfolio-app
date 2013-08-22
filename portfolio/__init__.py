@@ -5,7 +5,6 @@ import importlib
 
 from flask import Blueprint
 from flask.ext.sqlalchemy import SQLAlchemy
-#from flask_sqlalchemy import SQLAlchemy
 from flask.json import JSONEncoder as BaseJSONEncoder
 
 
