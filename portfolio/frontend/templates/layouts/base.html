@@ -9,17 +9,15 @@
         <title>Title</title>
         {% endif %}
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/normalize.css') }}" type="text/css" media="all" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/foundation.min.css') }}" type="text/css" media="all" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/general_foundicons.css') }}" type="text/css" media="all" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/general_foundicons_ie7.css') }}" type="text/css" media="all" />
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/portfolioApp.css') }}" type="text/css" media="all" />
     </head>
     <body>
+        <div class="container">
         {% include "layouts/_nav.html" %}
+        </div>
 
         <div class="container">
         {% block content %}{% endblock %}
@@ -31,12 +29,15 @@
             </div>
         </footer>
         <script src="https://login.persona.org/include.js"></script>
-        <script src="{{ url_for('static', filename='scripts/libs.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/angular.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/angular-route.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/angular-animate.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/angular-cookies.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/angular-resource.min.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/portfolioApp.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/portfolioApp.tpls.js') }}"></script>
-        <script>
-        $(document).foundation();
-        </script>
     </body>
 </html>
 
